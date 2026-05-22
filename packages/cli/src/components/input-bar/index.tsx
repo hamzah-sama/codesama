@@ -46,15 +46,16 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
     textarea.setText("");
   };
   const handleCommand = (command: Command | undefined) => {
+    if (!command) return;
     const textarea = textAreaRef.current;
     if (!textarea) return;
 
     textarea.setText("");
 
-    if (command?.action) {
+    if (command.action) {
       command.action({ exit: () => renderer.destroy() });
     } else {
-      textarea.insertText(command?.value + " ");
+      textarea.insertText(`${command.value} `);
     }
   };
 

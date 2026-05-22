@@ -3,7 +3,7 @@ import type { Command } from "./types";
 export const COMMANDS: Command[] = [
   {
     name: "new",
-    description: "Start an new conversation",
+    description: "Start a new conversation",
     value: "/new",
   },
   {

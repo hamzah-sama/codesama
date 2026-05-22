@@ -1,13 +1,14 @@
 import { useKeyboard } from "@opentui/react";
 import type { Command } from "../command-menu/types";
 import type { ScrollBoxRenderable } from "@opentui/core";
+import type {RefObject} from 'react'
 
 interface Props {
   showCommandMenu: boolean;
   setShowCommandMenu: (value: boolean) => void;
   filteredCommands: Command[];
   setSelectedIndex: (index: number | ((prevIndex: number) => number)) => void;
-  scrollRef: React.RefObject<ScrollBoxRenderable | null>;
+  scrollRef: RefObject<ScrollBoxRenderable | null>;
 }
 
 export const commandNavigation = ({
