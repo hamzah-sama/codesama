@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { useCommandMenu } from "../command-menu/use-command-menu";
 import type { Command } from "../command-menu/types";
 import { TEXTAREA_KEY_BINDING } from "../input-bar/key-binding";
+import { useToast } from "../../provider/toast/toast-provider";
 
 interface Props {
   onSubmit: (text: string) => void;
@@ -16,6 +17,7 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
   const textAreaRef = useRef<TextareaRenderable>(null);
   const onSubmitRef = useRef<() => void>(() => {});
   const renderer = useRenderer();
+  const toast = useToast();
   const {
     showCommandMenu,
     commandQuery,
@@ -53,7 +55,7 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
     textarea.setText("");
 
     if (command.action) {
-      command.action({ exit: () => renderer.destroy() });
+      command.action({ exit: () => renderer.destroy(), toast });
     } else {
       textarea.insertText(`${command.value} `);
     }

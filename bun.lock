@@ -3,6 +3,9 @@
   "workspaces": {
     "": {
       "name": "code-sama",
+      "devDependencies": {
+        "@types/node": "^25.9.1",
+      },
     },
     "packages/cli": {
       "name": "@code-sama/cli",
