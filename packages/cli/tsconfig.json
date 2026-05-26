@@ -4,5 +4,6 @@
     // Environment setup & latest features
     "jsx": "react-jsx",
     "jsxImportSource": "@opentui/react",
+    "types": ["node"]
   }
 }

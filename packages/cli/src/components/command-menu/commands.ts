@@ -18,6 +18,9 @@ export const COMMANDS: Command[] = [
     name: "clear",
     description: "Clear console",
     value: "/clear",
+    action: (ctx) => {
+      ctx.toast.show({message: 'Clearing console...'});
+    },
   },
   {
     name: "help",
