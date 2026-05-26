@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { DEFAULT_DURAION, type ToastOptions } from "./types";
+import { DEFAULT_DURATION, type ToastOptions } from "./types";
 import { Toast } from ".";
 
 export type ToastContextValue = {
@@ -41,7 +41,7 @@ export const ToastProvider = ({ children }: Props) => {
 
   const show = useCallback(
     (options: ToastOptions) => {
-      const duration = options.duration ?? DEFAULT_DURAION;
+      const duration = options.duration ?? DEFAULT_DURATION;
 
       clearCurrentTimeOut();
 

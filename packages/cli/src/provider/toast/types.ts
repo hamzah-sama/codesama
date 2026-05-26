@@ -1,7 +1,7 @@
 export type ToastOptions = {
-  variant: "success" | "error" | "info";
-  message?: string;
+  variant?: "success" | "error" | "info";
+  message: string;
   duration?: number;
 };
 
-export const DEFAULT_DURAION = 3000;
+export const DEFAULT_DURATION = 3000;

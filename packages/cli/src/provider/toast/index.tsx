@@ -7,7 +7,15 @@ interface Props {
 
 export const Toast = ({ currentToast }: Props) => {
   if (!currentToast) return null;
-  const { width } = useTerminalDimensions();
+  const variantColor = {
+    success: "green",
+    error: "red",
+    info: "blue",
+  };
+
+  const borderColor = currentToast.variant
+    ? variantColor[currentToast.variant]
+    : variantColor.info;
 
   return (
     <box
@@ -16,9 +24,9 @@ export const Toast = ({ currentToast }: Props) => {
       left={2}
       justifyContent="center"
       alignItems="flex-start"
-      width={Math.max(1, Math.min(60, width - 6))}
       paddingX={2}
       paddingY={1}
+      borderColor={borderColor}
       border={["left", "right"]}
     >
       <box flexDirection="column" gap={1} width="100%">
