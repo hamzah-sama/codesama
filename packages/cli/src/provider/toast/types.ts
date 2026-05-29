@@ -1,5 +1,8 @@
+
+export type ToastVariant = "success" | "error" | "info";
+
 export type ToastOptions = {
-  variant?: "success" | "error" | "info";
+  variant?: ToastVariant
   message: string;
   duration?: number;
 };

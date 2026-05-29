@@ -1,4 +1,5 @@
 import type { Command } from "./types";
+import { HelpDialog } from '../../provider/dialog/components/help-dialog';
 
 export const COMMANDS: Command[] = [
   {
@@ -19,13 +20,16 @@ export const COMMANDS: Command[] = [
     description: "Clear console",
     value: "/clear",
     action: (ctx) => {
-      ctx.toast.show({message: 'Clearing console...'});
+      ctx.toast.show({ message: "Clearing console..." });
     },
   },
   {
     name: "help",
     description: "Show help",
     value: "/help",
+    action: (ctx) => {
+      ctx.dialog.open( { title: "Help", children: <HelpDialog /> });
+    },
   },
   {
     name: "version",

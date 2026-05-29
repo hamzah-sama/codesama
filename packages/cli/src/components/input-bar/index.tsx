@@ -7,6 +7,8 @@ import { useCommandMenu } from "../command-menu/use-command-menu";
 import type { Command } from "../command-menu/types";
 import { TEXTAREA_KEY_BINDING } from "../input-bar/key-binding";
 import { useToast } from "../../provider/toast/toast-provider";
+import { useKeyboardLayer } from "../../provider/keyboard";
+import { useDialog } from "../../provider/dialog";
 
 interface Props {
   onSubmit: (text: string) => void;
@@ -18,13 +20,14 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
   const onSubmitRef = useRef<() => void>(() => {});
   const renderer = useRenderer();
   const toast = useToast();
+  const dialog = useDialog();
+  const { isTopLayer, setResponder } = useKeyboardLayer();
   const {
     showCommandMenu,
     commandQuery,
     selectedIndex,
     scrollRef,
     selectCommand,
-    setSelectedIndex,
     handleContentChange,
   } = useCommandMenu();
 
@@ -55,7 +58,7 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
     textarea.setText("");
 
     if (command.action) {
-      command.action({ exit: () => renderer.destroy(), toast });
+      command.action({ exit: () => renderer.destroy(), toast, dialog });
     } else {
       textarea.insertText(`${command.value} `);
     }
@@ -67,6 +70,19 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
 
     textArea.onSubmit = () => onSubmitRef.current();
   }, []);
+
+  useEffect(() => {
+    setResponder("base", () => {
+      if (disabled) return false;
+      const textArea = textAreaRef.current;
+      if (textArea && textArea.plainText.length > 0) {
+        textArea.setText("");
+        return true;
+      }
+      return false;
+    });
+    return () => setResponder("base", null);
+  }, [disabled, setResponder]);
 
   onSubmitRef.current = () => {
     if (disabled) return;
@@ -109,9 +125,9 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
             </box>
           )}
           <textarea
-            focused={!disabled}
+            focused={!disabled && !isTopLayer("dialog")}
             ref={textAreaRef}
-            placeholder={`Ask anything... fix a bug in database`}
+            placeholder={`Ask anything... fix a bug in database `}
             keyBindings={TEXTAREA_KEY_BINDING}
             onContentChange={handleTextareaContentChange}
           />

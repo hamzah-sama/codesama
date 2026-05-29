@@ -1,5 +1,4 @@
-import { useTerminalDimensions } from "@opentui/react";
-import type { ToastOptions } from "./types";
+import type { ToastOptions, ToastVariant } from "./types";
 
 interface Props {
   currentToast: ToastOptions | null;
@@ -7,7 +6,7 @@ interface Props {
 
 export const Toast = ({ currentToast }: Props) => {
   if (!currentToast) return null;
-  const variantColor = {
+  const variantColor: Record<ToastVariant, string> = {
     success: "green",
     error: "red",
     info: "blue",
@@ -21,7 +20,7 @@ export const Toast = ({ currentToast }: Props) => {
     <box
       position="absolute"
       top={2}
-      left={2}
+      right={2}
       justifyContent="center"
       alignItems="flex-start"
       paddingX={2}
@@ -29,11 +28,9 @@ export const Toast = ({ currentToast }: Props) => {
       borderColor={borderColor}
       border={["left", "right"]}
     >
-      <box flexDirection="column" gap={1} width="100%">
         <text wrapMode="word" fg="#e1e1e1" width="100%">
           {currentToast?.message}
         </text>
-      </box>
     </box>
   );
 };
