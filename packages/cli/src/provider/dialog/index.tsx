@@ -4,6 +4,7 @@ import { RGBA, TextAttributes } from "@opentui/core";
 import { useKeyboardLayer } from "../keyboard";
 import { escHandler } from "./escHandler";
 import { useTerminalDimensions } from "@opentui/react";
+import { useTheme } from "../theme";
 
 export type dialogContextValue = {
   open: (config: DialogConfig) => void;
@@ -54,6 +55,7 @@ interface Props {
 }
 export const Dialog = ({ currentDialog, close }: Props) => {
   const { isTopLayer } = useKeyboardLayer();
+  const {colors} = useTheme()
   escHandler({ close, disabledKey: !currentDialog || !isTopLayer("dialog") });
   const dimensions = useTerminalDimensions();
   if (!currentDialog) return null;
@@ -74,6 +76,7 @@ export const Dialog = ({ currentDialog, close }: Props) => {
         flexDirection="column"
         gap={1}
         width={Math.min(60, dimensions.width - 4)}
+        backgroundColor={colors.dialogSurface}
         paddingX={4}
         paddingY={1}
         height="auto"

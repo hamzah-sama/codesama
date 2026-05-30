@@ -1,3 +1,4 @@
+import { useTheme } from "../theme";
 import type { ToastOptions, ToastVariant } from "./types";
 
 interface Props {
@@ -6,10 +7,11 @@ interface Props {
 
 export const Toast = ({ currentToast }: Props) => {
   if (!currentToast) return null;
+  const { colors } = useTheme();
   const variantColor: Record<ToastVariant, string> = {
-    success: "green",
-    error: "red",
-    info: "blue",
+    success: colors.success,
+    error: colors.error,
+    info: colors.info,
   };
 
   const borderColor = currentToast.variant
@@ -28,9 +30,9 @@ export const Toast = ({ currentToast }: Props) => {
       borderColor={borderColor}
       border={["left", "right"]}
     >
-        <text wrapMode="word" fg="#e1e1e1" width="100%">
-          {currentToast?.message}
-        </text>
+      <text wrapMode="word" fg="#e1e1e1" width="100%">
+        {currentToast?.message}
+      </text>
     </box>
   );
 };

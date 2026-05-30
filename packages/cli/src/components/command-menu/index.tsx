@@ -1,11 +1,11 @@
-import { useState, type RefObject } from "react";
+import { type RefObject } from "react";
 import {
-  TerminalConsole,
   TextAttributes,
   type ScrollBoxRenderable,
 } from "@opentui/core";
 import { getFilterCommands } from "./filter-commands";
 import { COMMANDS_COL_WIDTH, MAX_VISIBLE_COMMANDS } from "./constants";
+import { useTheme } from "../../provider/theme";
 
 interface Props {
   query: string;
@@ -15,7 +15,7 @@ interface Props {
 
 export const CommandMenu = ({ query, selectedIndex, scrollRef }: Props) => {
   const filter = getFilterCommands(query);
-
+  const {colors} = useTheme()
   const visibleHeight = Math.min(filter.length, MAX_VISIBLE_COMMANDS);
 
   if (filter.length === 0) {
@@ -36,7 +36,7 @@ export const CommandMenu = ({ query, selectedIndex, scrollRef }: Props) => {
             paddingX={1}
             height={1}
             key={cmd.value}
-            backgroundColor={isSelected ? "#89b4fa" : undefined}
+            backgroundColor={isSelected ? colors.selection : undefined}
             overflow="hidden"
           >
             <box flexShrink={0} width={COMMANDS_COL_WIDTH}>

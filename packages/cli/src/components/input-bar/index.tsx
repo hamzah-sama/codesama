@@ -9,6 +9,7 @@ import { TEXTAREA_KEY_BINDING } from "../input-bar/key-binding";
 import { useToast } from "../../provider/toast/toast-provider";
 import { useKeyboardLayer } from "../../provider/keyboard";
 import { useDialog } from "../../provider/dialog";
+import { useTheme } from "../../provider/theme";
 
 interface Props {
   onSubmit: (text: string) => void;
@@ -18,6 +19,7 @@ interface Props {
 export const InputBar = ({ onSubmit, disabled = false }: Props) => {
   const textAreaRef = useRef<TextareaRenderable>(null);
   const onSubmitRef = useRef<() => void>(() => {});
+  const { colors } = useTheme();
   const renderer = useRenderer();
   const toast = useToast();
   const dialog = useDialog();
@@ -98,11 +100,11 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
 
   return (
     <box alignItems="center" width="100%">
-      <box border={["left"]} borderColor="cyan" width={70}>
+      <box border={["left"]} borderColor={colors.primary} width={70}>
         <box
           position="relative"
           width="100%"
-          backgroundColor="#1a1a24"
+          backgroundColor={colors.surface}
           paddingX={2}
           paddingY={1}
           justifyContent="center"
@@ -115,7 +117,7 @@ export const InputBar = ({ onSubmit, disabled = false }: Props) => {
               left={0}
               bottom="100%"
               width="100%"
-              backgroundColor="#1a1a24"
+              backgroundColor={colors.surface}
             >
               <CommandMenu
                 query={commandQuery}

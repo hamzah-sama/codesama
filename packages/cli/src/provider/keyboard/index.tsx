@@ -1,7 +1,7 @@
 import { createContext, use, useCallback, useState, useRef } from "react";
 import { ctrlCHandler } from "./ctrl-c-handler";
 
-export type Responder = () => void;
+export type Responder = () => boolean;
 export type KeyboardContextValue = {
   push: (id: string, responder?: Responder) => void;
   pop: (id: string) => void;
