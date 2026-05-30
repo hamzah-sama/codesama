@@ -9,26 +9,7 @@ import React, {
 import { DEFAULT_DURATION, type ToastOptions } from "./types";
 import { Toast } from ".";
 
-export type ToastContextValue = {
-  show: (options: ToastOptions) => void;
-};
-
-const ToastContext = createContext<ToastContextValue | null>(null);
-
-export const useToast = (): ToastContextValue => {
-  const value = useContext(ToastContext);
-  if (!value) {
-    throw new Error("useToast must be used within a ToastProvider");
-  }
-
-  return value;
-};
-
-interface Props {
-  children: React.ReactNode;
-}
-
-export const ToastProvider = ({ children }: Props) => {
+export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentToast, setCurrentToast] = useState<ToastOptions | null>(null);
   const timeOutHandlerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -66,4 +47,19 @@ export const ToastProvider = ({ children }: Props) => {
       <Toast currentToast={currentToast} />
     </ToastContext.Provider>
   );
+};
+
+export type ToastContextValue = {
+  show: (options: ToastOptions) => void;
+};
+
+const ToastContext = createContext<ToastContextValue | null>(null);
+
+export const useToast = (): ToastContextValue => {
+  const value = useContext(ToastContext);
+  if (!value) {
+    throw new Error("useToast must be used within a ToastProvider");
+  }
+
+  return value;
 };
