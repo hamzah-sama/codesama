@@ -1,8 +1,8 @@
 import { createCliRenderer } from "@opentui/core";
 import { createRoot } from "@opentui/react";
-import { App } from "./app";
+import { LayoutApp } from "./layout/layout-app";
 
 const renderer = await createCliRenderer({
   exitOnCtrlC: false,
 });
-createRoot(renderer).render(<App />);
+createRoot(renderer).render(<LayoutApp />);
